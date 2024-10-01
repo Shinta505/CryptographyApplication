@@ -100,7 +100,20 @@
     <!-- Menu untuk Kriptografi Modern 1 (masih kosong) -->
     <div id="menu3" class="menu-content" style="display:none;">
       <h2>AES Encryption</h2>
-      <!-- Kriptografi Modern 1 content will be placed here -->
+    <div class="input">
+            <label for="Kriptografi Modern">Text :</label>
+            <input type="text" id="inputText">
+        </div>
+        <div class="key-input">
+            <label for="ModernXorKey">Key :</label>
+            <input type="text" id="inputKey">
+        </div>
+    
+        <button onclick="encryptAES()">Encrypt</button>
+        <button onclick="decryptAES()">Decrypt</button>
+        <div class="output">
+            Result: <span type="text" id="result"> 
+        </div>
     </div>
 
     <!-- Menu untuk Kriptografi Modern 2 (masih kosong) -->
@@ -205,6 +218,91 @@
       }
       document.getElementById('vigenereResult').innerText = result; // Menampilkan hasil dekripsi
     }
+     //AES
+    function strToArrayBuffer(str) {
+                const encoder = new TextEncoder();
+                return encoder.encode(str);
+            }
+
+            function arrayBufferToStr(buffer) {
+                const decoder = new TextDecoder();
+                return decoder.decode(buffer);
+            }
+
+            async function importKey(keyStr) {
+                const keyBuffer = strToArrayBuffer(keyStr);
+                return crypto.subtle.importKey(
+                    "raw",
+                    keyBuffer,
+                    { name: "AES-CBC" },
+                    false,
+                    ["encrypt", "decrypt"]
+                );
+            }
+
+            function padKey(keyStr, length = 16) {
+                return keyStr.padEnd(length, '0').slice(0, length);
+            }
+
+            async function encryptAES() {
+                const text = document.getElementById("inputText").value;
+                const keyStr = padKey(document.getElementById("inputKey").value);
+
+                if (text === "" || keyStr === "") {
+                    alert("Teks dan kunci harus diisi!");
+                    return;
+                }
+
+                const textBuffer = strToArrayBuffer(text);
+                const key = await importKey(keyStr);
+                const iv = crypto.getRandomValues(new Uint8Array(16));
+
+                try {
+                    const encryptedBuffer = await crypto.subtle.encrypt(
+                        { name: "AES-CBC", iv: iv },
+                        key,
+                        textBuffer
+                    );
+
+                    const encryptedArray = new Uint8Array(encryptedBuffer);
+                    const combinedBuffer = new Uint8Array(iv.length + encryptedArray.length);
+                    combinedBuffer.set(iv, 0);
+                    combinedBuffer.set(encryptedArray, iv.length);
+                    const encryptedBase64 = btoa(String.fromCharCode(...combinedBuffer));
+                    document.getElementById("result").textContent = encryptedBase64;
+                } catch (e) {
+                    console.error("Error saat enkripsi: ", e);
+                }
+            }
+
+            async function decryptAES() {
+                const encryptedBase64 = document.getElementById("inputText").value; // Input dari text box
+                const keyStr = padKey(document.getElementById("inputKey").value);
+
+                if (encryptedBase64 === "" || keyStr === "") {
+                    alert("Teks terenkripsi dan kunci harus diisi!");
+                    return;
+                }
+
+                const encryptedBytes = atob(encryptedBase64).split('').map(c => c.charCodeAt(0));
+                const iv = new Uint8Array(encryptedBytes.slice(0, 16));
+                const encryptedBuffer = new Uint8Array(encryptedBytes.slice(16)).buffer;
+                const key = await importKey(keyStr);
+
+                try {
+                    const decryptedBuffer = await crypto.subtle.decrypt(
+                        { name: "AES-CBC", iv: iv },
+                        key,
+                        encryptedBuffer
+                    );
+
+                    const decryptedText = arrayBufferToStr(decryptedBuffer);
+                    document.getElementById("result").textContent = decryptedText;
+                } catch (e) {
+                    alert("Dekripsi gagal! Kunci atau teks mungkin salah.");
+                    console.error("Error saat dekripsi: ", e);
+                }
+            }
   </script>
 </body>
 </html>
