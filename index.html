@@ -5,83 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Encryption & Decryption App</title>
-  <style>
-    /* Styling untuk body dan elemen di dalamnya */
-    body {
-      font-family: Arial, sans-serif;
-      /* Mengatur font yang digunakan */
-      background-color: #f4f4f4;
-      /* Warna latar belakang */
-      padding: 20px;
-      /* Memberikan jarak di sekitar body */
-    }
-
-    .container {
-      max-width: 800px;
-      /* Lebar maksimum kontainer */
-      margin: auto;
-      /* Mengatur margin agar berada di tengah */
-      background: white;
-      /* Warna latar belakang kontainer */
-      padding: 20px;
-      /* Memberikan jarak di dalam kontainer */
-      border-radius: 8px;
-      /* Membuat sudut kontainer menjadi melengkung */
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      /* Menambahkan bayangan pada kontainer */
-    }
-
-    h1 {
-      text-align: center;
-      /* Mengatur teks judul agar berada di tengah */
-    }
-
-    .menu {
-      display: flex;
-      /* Mengatur menu menggunakan flexbox */
-      justify-content: space-around;
-      /* Menyebar tombol secara merata */
-      margin-bottom: 20px;
-      /* Memberikan jarak di bawah menu */
-    }
-
-    .menu button {
-      padding: 10px 20px;
-      /* Memberikan padding pada tombol */
-      border: none;
-      /* Menghapus border default */
-      background-color: #007bff;
-      /* Warna latar belakang tombol */
-      color: white;
-      /* Warna teks tombol */
-      cursor: pointer;
-      /* Menunjukkan bahwa tombol dapat diklik */
-    }
-
-    .menu button:hover {
-      background-color: #0056b3;
-      /* Mengubah warna tombol saat hover */
-    }
-
-    .output,
-    .input,
-    .key-input {
-      margin: 10px 0;
-      /* Memberikan margin di atas dan bawah */
-    }
-
-    .output {
-      color: green;
-      /* Mengatur warna output menjadi hijau */
-    }
-
-    #result {
-      font-weight: bold;
-      /* Menebalkan teks hasil */
-      font-size: 1.2em;
-      /* Mengatur ukuran font hasil */
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -91,8 +15,8 @@
       <!-- Tombol untuk menampilkan menu enkripsi yang berbeda -->
       <button onclick="showMenu(1)">Caesar Cipher</button>
       <button onclick="showMenu(2)">Vigenère Cipher</button>
-      <button onclick="showMenu(3)">Kriptografi Modern 1</button>
-      <button onclick="showMenu(4)">Kriptografi Modern 2</button>
+      <button onclick="showMenu(3)">AES Encryption</button>
+      <button onclick="showMenu(4)">XOR Encryption</button>
       <button onclick="showMenu(5)">Super Encryption</button>
     </div>
 
@@ -101,11 +25,11 @@
       <h2>Caesar Cipher</h2>
       <div class="input">
         <label for="caesarText">Text: </label>
-        <input type="text" id="caesarText"> <!-- Input untuk teks yang akan dienkripsi -->
+        <input type="text" id="caesarText" placeholder="Masukkan teks"> <!-- Input untuk teks yang akan dienkripsi -->
       </div>
       <div class="key-input">
         <label for="caesarKey">Key (Shift): </label>
-        <input type="number" id="caesarKey"> <!-- Input untuk kunci pergeseran -->
+        <input type="number" id="caesarKey" placeholder="Masukkan shift"> <!-- Input untuk kunci pergeseran -->
       </div>
       <button onclick="encryptCaesar()">Encrypt</button> <!-- Tombol untuk enkripsi -->
       <button onclick="decryptCaesar()">Decrypt</button> <!-- Tombol untuk dekripsi -->
@@ -119,11 +43,11 @@
       <h2>Vigenère Cipher</h2>
       <div class="input">
         <label for="vigenereText">Text: </label>
-        <input type="text" id="vigenereText"> <!-- Input untuk teks yang akan dienkripsi -->
+        <input type="text" id="vigenereText" placeholder="Masukkan teks"> <!-- Input untuk teks yang akan dienkripsi -->
       </div>
       <div class="key-input">
         <label for="vigenereKey">Key: </label>
-        <input type="text" id="vigenereKey"> <!-- Input untuk kunci -->
+        <input type="text" id="vigenereKey" placeholder="Masukkan key"> <!-- Input untuk kunci -->
       </div>
       <button onclick="encryptVigenere()">Encrypt</button> <!-- Tombol untuk enkripsi -->
       <button onclick="decryptVigenere()">Decrypt</button> <!-- Tombol untuk dekripsi -->
@@ -132,35 +56,35 @@
       </div>
     </div>
 
-    <!-- Menu untuk Kriptografi Modern 1 (AES) -->
+    <!-- Menu untuk AES Encryption -->
     <div id="menu3" class="menu-content" style="display:none;">
       <h2>AES Encryption</h2>
       <div class="input">
-        <label for="Kriptografi Modern">Text :</label>
-        <input type="text" id="inputText">
+        <label for="aesText">Text:</label>
+        <input type="text" id="aesText" placeholder="Masukkan teks"> <!-- Input untuk teks yang akan dienkripsi -->
       </div>
       <div class="key-input">
-        <label for="ModernXorKey">Key :</label>
-        <input type="text" id="inputKey">
+        <label for="aesKey">Key:</label>
+        <input type="text" id="aesKey" placeholder="Masukkan key"> <!-- Input untuk kunci -->
       </div>
 
       <button onclick="encryptAES()">Encrypt</button>
       <button onclick="decryptAES()">Decrypt</button>
       <div class="output">
-        Result: <span type="text" id="result">
+        Result: <span id="aesResult"></span> <!-- Tempat untuk menampilkan hasil -->
       </div>
     </div>
 
-    <!-- Menu untuk Kriptografi Modern 2 (XOR Encryption) -->
+    <!-- Menu untuk XOR Encryption -->
     <div id="menu4" class="menu-content" style="display:none;">
       <h2>XOR Encryption</h2>
       <div class="input">
         <label for="xorText">Text: </label>
-        <input type="text" id="xorText"> <!-- Input untuk teks yang akan dienkripsi -->
+        <input type="text" id="xorText" placeholder="Masukkan teks"> <!-- Input untuk teks yang akan dienkripsi -->
       </div>
       <div class="key-input">
         <label for="xorKey">Key: </label>
-        <input type="text" id="xorKey"> <!-- Input untuk kunci -->
+        <input type="text" id="xorKey" placeholder="Masukkan key"> <!-- Input untuk kunci -->
       </div>
       <button onclick="encryptXOR()">Encrypt</button> <!-- Tombol untuk enkripsi -->
       <button onclick="decryptXOR()">Decrypt</button> <!-- Tombol untuk dekripsi -->
@@ -169,224 +93,27 @@
       </div>
     </div>
 
-
-    <!-- Menu untuk Super Encryption (masih kosong) -->
+    <!-- Menu untuk Super Encryption -->
     <div id="menu5" class="menu-content" style="display:none;">
       <h2>Super Encryption</h2>
-      <!-- Super encryption combining all the above -->
+      <div class="input">
+        <label for="superText">Text: </label>
+        <input type="text" id="superText" placeholder="Masukkan teks"> <!-- Input untuk teks yang akan dienkripsi -->
+      </div>
+      <div class="key-input">
+        <label for="superKey">Key: </label>
+        <input type="text" id="superKey" placeholder="Masukkan key"> <!-- Input untuk kunci -->
+      </div>
+
+      <button onclick="superEncrypt()">Super Encrypt</button> <!-- Tombol untuk enkripsi -->
+      <button onclick="superDecrypt()">Super Decrypt</button> <!-- Tombol untuk dekripsi -->
+      <div class="output">
+        Result: <span id="superResult"></span> <!-- Tempat untuk menampilkan hasil -->
+      </div>
     </div>
   </div>
 
-  <script>
-    // Fungsi untuk menampilkan menu sesuai nomor yang dipilih
-    function showMenu(menuNumber) {
-      const menus = document.querySelectorAll('.menu-content'); // Mengambil semua elemen menu
-      menus.forEach(menu => menu.style.display = 'none'); // Menyembunyikan semua menu
-      document.getElementById('menu' + menuNumber).style.display = 'block'; // Menampilkan menu yang dipilih
-    }
-
-    // Caesar Cipher Encryption and Decryption
-    function encryptCaesar() {
-      const text = document.getElementById('caesarText').value; // Mengambil nilai dari input teks
-      const shift = parseInt(document.getElementById('caesarKey').value); // Mengambil nilai kunci dan mengubahnya menjadi integer
-      let result = ''; // Variabel untuk menyimpan hasil enkripsi
-
-      // Mengulangi setiap karakter dalam teks
-      for (let i = 0; i < text.length; i++) {
-        let char = text.charCodeAt(i); // Mengambil kode karakter dari teks
-        if (char >= 65 && char <= 90) { // Memeriksa apakah karakter adalah huruf besar
-          result += String.fromCharCode(((char - 65 + shift) % 26) + 65); // Menghitung huruf yang dienkripsi dan menambahkannya ke hasil
-        } else if (char >= 97 && char <= 122) { // Memeriksa apakah karakter adalah huruf kecil
-          result += String.fromCharCode(((char - 97 + shift) % 26) + 97); // Menghitung huruf yang dienkripsi dan menambahkannya ke hasil
-        } else {
-          result += text.charAt(i); // Karakter non-huruf tetap sama
-        }
-      }
-      document.getElementById('caesarResult').innerText = result; // Menampilkan hasil enkripsi
-    }
-
-    function decryptCaesar() {
-      const text = document.getElementById('caesarText').value; // Mengambil nilai dari input teks
-      const shift = parseInt(document.getElementById('caesarKey').value); // Mengambil nilai kunci dan mengubahnya menjadi integer
-      let result = ''; // Variabel untuk menyimpan hasil dekripsi
-
-      // Mengulangi setiap karakter dalam teks
-      for (let i = 0; i < text.length; i++) {
-        let char = text.charCodeAt(i); // Mengambil kode karakter dari teks
-        if (char >= 65 && char <= 90) { // Memeriksa apakah karakter adalah huruf besar
-          result += String.fromCharCode(((char - 65 - shift + 26) % 26) + 65); // Menghitung huruf yang didekripsi dan menambahkannya ke hasil
-        } else if (char >= 97 && char <= 122) { // Memeriksa apakah karakter adalah huruf kecil
-          result += String.fromCharCode(((char - 97 - shift + 26) % 26) + 97); // Menghitung huruf yang didekripsi dan menambahkannya ke hasil
-        } else {
-          result += text.charAt(i); // Karakter non-huruf tetap sama
-        }
-      }
-      document.getElementById('caesarResult').innerText = result; // Menampilkan hasil dekripsi
-    }
-
-    // Vigenère Cipher Encryption and Decryption
-    function encryptVigenere() {
-      const text = document.getElementById('vigenereText').value; // Mengambil nilai dari input teks
-      const key = document.getElementById('vigenereKey').value.replace(/\s+/g, ''); // Mengambil nilai dari input kunci dan menghapus spasi
-      let result = ''; // Variabel untuk menyimpan hasil enkripsi
-
-      let keyIndex = 0; // Indeks untuk mengulangi kunci
-      for (let i = 0; i < text.length; i++) {
-        let char = text.charCodeAt(i); // Mengambil kode karakter dari teks 
-        if (char >= 65 && char <= 90) { // Memeriksa apakah karakter adalah huruf besar
-          result += String.fromCharCode(((char - 65 + (key.charCodeAt(keyIndex % key.length) - 65)) % 26) + 65); // Menghitung huruf yang dienkripsi dan menambahkannya ke hasil
-          keyIndex++; // Mengupdate indeks kunci
-        } else if (char >= 97 && char <= 122) { // Memeriksa apakah karakter adalah huruf kecil
-          result += String.fromCharCode(((char - 97 + (key.charCodeAt(keyIndex % key.length) - 97)) % 26) + 97); // Menghitung huruf yang dienkripsi dan menambahkannya ke hasil
-          keyIndex++; // Mengupdate indeks kunci
-        } else {
-          result += text.charAt(i); // Karakter non-huruf tetap sama
-        }
-      }
-      document.getElementById('vigenereResult').innerText = result; // Menampilkan hasil enkripsi
-    }
-
-    function decryptVigenere() {
-      const text = document.getElementById('vigenereText').value; // Mengambil nilai dari input teks
-      const key = document.getElementById('vigenereKey').value.replace(/\s+/g, ''); // Mengambil nilai dari input kunci dan menghapus spasi
-      let result = ''; // Variabel untuk menyimpan hasil dekripsi
-
-      let keyIndex = 0; // Indeks untuk mengulangi kunci
-      for (let i = 0; i < text.length; i++) {
-        let char = text.charCodeAt(i); // Mengambil kode karakter dari teks
-        if (char >= 65 && char <= 90) { // Memeriksa apakah karakter adalah huruf besar
-          result += String.fromCharCode(((char - 65 - (key.charCodeAt(keyIndex % key.length) - 65) + 26) % 26) + 65); // Menghitung huruf yang didekripsi dan menambahkannya ke hasil
-          keyIndex++; // Mengupdate indeks kunci
-        } else if (char >= 97 && char <= 122) { // Memeriksa apakah karakter adalah huruf kecil
-          result += String.fromCharCode(((char - 97 - (key.charCodeAt(keyIndex % key.length) - 97) + 26) % 26) + 97); // Menghitung huruf yang didekripsi dan menambahkannya ke hasil
-          keyIndex++; // Mengupdate indeks kunci
-        } else {
-          result += text.charAt(i); // Karakter non-huruf tetap sama
-        }
-      }
-      document.getElementById('vigenereResult').innerText = result; // Menampilkan hasil dekripsi
-    }
-
-    //AES
-    function strToArrayBuffer(str) {
-      const encoder = new TextEncoder();
-      return encoder.encode(str);
-    }
-
-    function arrayBufferToStr(buffer) {
-      const decoder = new TextDecoder();
-      return decoder.decode(buffer);
-    }
-
-    async function importKey(keyStr) {
-      const keyBuffer = strToArrayBuffer(keyStr);
-      return crypto.subtle.importKey(
-        "raw",
-        keyBuffer,
-        { name: "AES-CBC" },
-        false,
-        ["encrypt", "decrypt"]
-      );
-    }
-
-    function padKey(keyStr, length = 16) {
-      return keyStr.padEnd(length, '0').slice(0, length);
-    }
-
-    async function encryptAES() {
-      const text = document.getElementById("inputText").value;
-      const keyStr = padKey(document.getElementById("inputKey").value);
-
-      if (text === "" || keyStr === "") {
-        alert("Teks dan kunci harus diisi!");
-        return;
-      }
-
-      const textBuffer = strToArrayBuffer(text);
-      const key = await importKey(keyStr);
-      const iv = crypto.getRandomValues(new Uint8Array(16));
-
-      try {
-        const encryptedBuffer = await crypto.subtle.encrypt(
-          { name: "AES-CBC", iv: iv },
-          key,
-          textBuffer
-        );
-
-        const encryptedArray = new Uint8Array(encryptedBuffer);
-        const combinedBuffer = new Uint8Array(iv.length + encryptedArray.length);
-        combinedBuffer.set(iv, 0);
-        combinedBuffer.set(encryptedArray, iv.length);
-        const encryptedBase64 = btoa(String.fromCharCode(...combinedBuffer));
-        document.getElementById("result").textContent = encryptedBase64;
-      } catch (e) {
-        console.error("Error saat enkripsi: ", e);
-      }
-    }
-
-    async function decryptAES() {
-      const encryptedBase64 = document.getElementById("inputText").value; // Input dari text box
-      const keyStr = padKey(document.getElementById("inputKey").value);
-
-      if (encryptedBase64 === "" || keyStr === "") {
-        alert("Teks terenkripsi dan kunci harus diisi!");
-        return;
-      }
-
-      const encryptedBytes = atob(encryptedBase64).split('').map(c => c.charCodeAt(0));
-      const iv = new Uint8Array(encryptedBytes.slice(0, 16));
-      const encryptedBuffer = new Uint8Array(encryptedBytes.slice(16)).buffer;
-      const key = await importKey(keyStr);
-
-      try {
-        const decryptedBuffer = await crypto.subtle.decrypt(
-          { name: "AES-CBC", iv: iv },
-          key,
-          encryptedBuffer
-        );
-
-        const decryptedText = arrayBufferToStr(decryptedBuffer);
-        document.getElementById("result").textContent = decryptedText;
-      } catch (e) {
-        alert("Dekripsi gagal! Kunci atau teks mungkin salah.");
-        console.error("Error saat dekripsi: ", e);
-      }
-    }
-
-    // XOR Encryption and Decryption
-    function encryptXOR() {
-      const text = document.getElementById('xorText').value; // Mengambil nilai dari input teks
-      const key = document.getElementById('xorKey').value.toUpperCase(); // Mengambil nilai dari input kunci
-      let result = ''; // Variabel untuk menyimpan hasil enkripsi
-
-      // Mengulangi setiap karakter dalam teks
-      for (let i = 0; i < text.length; i++) {
-        let textChar = text.charCodeAt(i); // Mengambil kode ASCII karakter dari teks
-        let keyChar = key.charCodeAt(i % key.length); // Mengambil kode ASCII dari kunci (menggunakan modulus untuk mengulang kunci jika lebih pendek)
-        let xorChar = textChar ^ keyChar; // Melakukan XOR antara karakter teks dan kunci
-        result += String.fromCharCode(xorChar); // Menambahkan hasil enkripsi ke variabel hasil
-      }
-
-      document.getElementById('xorResult').innerText = result; // Menampilkan hasil enkripsi
-    }
-
-    function decryptXOR() {
-      const text = document.getElementById('xorText').value; // Mengambil nilai dari input teks terenkripsi
-      const key = document.getElementById('xorKey').value.toUpperCase(); // Mengambil nilai dari input kunci
-      let result = ''; // Variabel untuk menyimpan hasil dekripsi
-
-      // Proses dekripsi sama seperti enkripsi karena XOR adalah operasi simetris
-      for (let i = 0; i < text.length; i++) {
-        let textChar = text.charCodeAt(i); // Mengambil kode ASCII karakter dari teks
-        let keyChar = key.charCodeAt(i % key.length); // Mengambil kode ASCII dari kunci
-        let xorChar = textChar ^ keyChar; // Melakukan XOR untuk dekripsi
-        result += String.fromCharCode(xorChar); // Menambahkan hasil dekripsi ke variabel hasil
-      }
-
-      document.getElementById('xorResult').innerText = result; // Menampilkan hasil dekripsi
-    }
-
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
