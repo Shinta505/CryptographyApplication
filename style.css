@@ -1,0 +1,94 @@
+/* Styling untuk body dan elemen di dalamnya */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.menu button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.menu button:hover {
+    background-color: #0056b3;
+}
+
+.input,
+.key-input,
+.output {
+    margin: 15px 0;
+}
+
+.input label,
+.key-input label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: calc(100% - 170px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.output {
+    color: green;
+    font-size: 1.1em;
+    word-wrap: break-word; /* Memungkinkan teks panjang membungkus */
+    /* Alternatif: word-break: break-all; */
+    max-width: 100%; /* Pastikan output tidak melebihi lebar container */
+}
+
+.output span {
+    font-weight: bold;
+    display: inline; /* Bisa juga menggunakan inline-block atau block jika diperlukan */
+    /* Jika teks masih tidak membungkus, coba ubah ke block:
+    display: block;
+    */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.menu-content {
+    display: none;
+}
